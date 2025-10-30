@@ -27,7 +27,7 @@ export default function Post() {
     formData.append("email", email);
     formData.append("title", title);
     formData.append("description", desc);
-    formData.append("file", file);
+    formData.append("image", file);
 
       await axios
       .post(`${api}/item`, formData, {
@@ -91,11 +91,13 @@ export default function Post() {
               </textarea>
             </div>
             <div className="input-container">
+              <label htmlFor="file">Upload Image</label>{" "}
               <input
                 type="file"
                 accept="images/*"
                 onChange={(e) => setFile(e.target.files[0])}
                 name="file"
+                id="file"
               />
             </div>
             <div className="input-container">

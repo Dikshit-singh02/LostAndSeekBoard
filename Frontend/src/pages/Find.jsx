@@ -1,38 +1,50 @@
-import React,{useState,CSSProperties, useEffect} from "react";
+import React,{useState, useEffect} from "react";
 import Itemcard from "../components/ItemCard";
 import Navbar from "../components/Navbar";
-import axios from "axios"
+import axios from "axios";
 import { api } from "../config";
 import HashLoader from "react-spinners/HashLoader";
-import AOS from "aos"
-import "aos/dist/aos.css"
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useSearchParams } from "react-router-dom";
 
 function Find() {
- const [item, setItem] = useState([]);
- const [loading, setLoading]=useState(true)
- useEffect(()=>{
-  AOS.init({duration:750})
- },[])
+  const [item, setItem] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
 
- const override: CSSProperties = {
-   display: "block",
-   borderColor: "#fdf004",
-   position: "absolute",
-   top:"50%",
-   left:"50%",
-   transform:"translate(-50%,-50%)"
- };
- useEffect(()=>{
-   axios
-     .get(`${api}/item`)
-     .then((res) => {
-       setItem(res.data.data);
-       setLoading(false)
-     })
-     .catch((error) => {
-       console.log(error);
-     });
-     },[])
+  useEffect(() => {
+    AOS.init({ duration: 750 });
+  }, []);
+
+  const override = {
+    display: "block",
+    borderColor: "#fdf004",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
+  };
+  useEffect(() => {
+    axios
+      .get(`${api}/item`)
+      .then((res) => {
+        let items = res.data.data;
+        if (searchQuery) {
+          items = items.filter(
+            (item) =>
+              item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              item.description.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        }
+        setItem(items);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [searchQuery]);
   return (
     <main id="findpage">
       <Navbar />
@@ -45,7 +57,7 @@ function Find() {
             cssOverride={override}
             size={50}
             aria-label="Loading Spinner"
-            data-testid="loader" 
+            data-testid="loader"
           />
           {item.reverse().map((findItem, index) => {
             return (
@@ -55,6 +67,7 @@ function Find() {
                 title={findItem.title}
                 description={findItem.description}
                 image={findItem.image}
+                createdAt={findItem.createdAt}
               />
             );
           })}

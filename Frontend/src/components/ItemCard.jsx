@@ -19,6 +19,16 @@ export default function Itemcard(props) {
 
   },[props.image]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   return (
     <a href={"/find/details/" + props.id} data-aos="fade-up">
@@ -32,6 +42,7 @@ export default function Itemcard(props) {
         <div className="card-desc">
           <h2>{props.title}</h2>
           <p>{props.description}</p>
+          <p className="post-date">Posted: {formatDate(props.createdAt)}</p>
         </div>
       </div>
     </a>
