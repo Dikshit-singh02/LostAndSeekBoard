@@ -1,5 +1,7 @@
 # LostAndSeekBoard
 
+[![GitHub](https://img.shields.io/badge/GitHub-Dikshit--singh02/LostAndSeekBoard-blue)](https://github.com/Dikshit-singh02/LostAndSeekBoard)
+
 A full-stack web application for reporting and finding lost items. Users can post lost items with details and images, while others can browse and search for items to help reunite them with their owners. Admins have additional privileges to manage items.
 
 ## Features
