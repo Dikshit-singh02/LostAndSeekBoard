@@ -108,7 +108,6 @@ Lost-And-Found/
 │   ├── .env
 │   ├── index.js
 │   ├── config.js
-│   ├── vercel.json
 │   ├── models/
 │   │   ├── itemmodel.js
 │   │   └── usermodel.js
