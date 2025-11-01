@@ -1,5 +1,5 @@
 import express from "express";
-import { PORT, mongoURL } from "./config.js";
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { Item } from "./models/itemmodel.js";
 import { User } from "./models/usermodel.js";
@@ -8,6 +8,8 @@ import multer from "multer";
 import path from "path";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+
+dotenv.config();
 
 const app = express();
 
@@ -204,12 +206,12 @@ const seedAdmin = async () => {
 
 // Connect to MongoDB and start server
 mongoose
-  .connect(mongoURL)
+  .connect(process.env.MONGO_URL)
   .then(async () => {
     console.log("Connected to local MongoDB database");
     await seedAdmin();
-    app.listen(PORT, () => {
-      console.log(`Server started at port ${PORT}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`Server started at port ${process.env.PORT}`);
     });
   })
   .catch((error) => {
