@@ -103,27 +103,52 @@ A full-stack web application for reporting and finding lost items. Users can pos
 ## Project Structure
 
 ```
-LostAndSeekBoard/
+Lost-And-Found/
 ├── Backend/
-│   ├── config.js
+│   ├── .env
 │   ├── index.js
+│   ├── config.js
+│   ├── vercel.json
 │   ├── models/
 │   │   ├── itemmodel.js
 │   │   └── usermodel.js
 │   ├── files/ (uploaded images)
-│   └── package.json
+│   ├── package.json
+│   ├── package-lock.json
+│   └── node_modules/
 ├── Frontend/
 │   ├── public/
+│   │   ├── index.html
+│   │   ├── manifest.json
+│   │   └── images/
+│   │       └── favicon.png
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── Form.jsx
+│   │   │   ├── ItemCard.jsx
+│   │   │   └── Navbar.jsx
 │   │   ├── pages/
+│   │   │   ├── Admin.jsx
+│   │   │   ├── Details.jsx
+│   │   │   ├── Find.jsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   └── Post.jsx
 │   │   ├── assets/
+│   │   │   ├── l&f.png
+│   │   │   ├── newLogo.jpeg
+│   │   │   └── no-image.png
 │   │   ├── App.jsx
+│   │   ├── App.css
 │   │   ├── index.js
 │   │   └── config.js
-│   └── package.json
+│   ├── package.json
+│   ├── package-lock.json
+│   └── node_modules/
 ├── .gitignore
-└── README.md
+├── README.md
+├── TODO.md
+└── .git/
 ```
 
 ## Contributing
