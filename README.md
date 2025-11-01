@@ -1,4 +1,4 @@
-# Lost and Found Application
+# LostAndSeekBoard
 
 A full-stack web application for reporting and finding lost items. Users can post lost items with details and images, while others can browse and search for items to help reunite them with their owners. Admins have additional privileges to manage items.
 
@@ -38,7 +38,11 @@ A full-stack web application for reporting and finding lost items. Users can pos
 
 ## Installation
 
-1. **Clone the repository** (if applicable) or navigate to the project directory.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Dikshit-singh02/LostAndSeekBoard.git
+   cd LostAndSeekBoard
+   ```
 
 2. **Install Backend Dependencies**:
    ```bash
@@ -99,7 +103,7 @@ A full-stack web application for reporting and finding lost items. Users can pos
 ## Project Structure
 
 ```
-Lost-And-Found/
+LostAndSeekBoard/
 ├── Backend/
 │   ├── config.js
 │   ├── index.js
