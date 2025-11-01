@@ -1,5 +1,6 @@
-# TODO: Prepare Frontend for Deployment
+# TODO: Fix Frontend Build Error for Render Deployment
 
-- [x] Update Frontend/src/config.js to use environment variable for API URL
-- [x] Create Frontend/.env file with production API URL
+- [x] cd Frontend
+- [x] Install react-scripts: npm install react-scripts --save
+- [x] Verify Frontend/package.json has react-scripts
 - [ ] Commit and push changes to GitHub
