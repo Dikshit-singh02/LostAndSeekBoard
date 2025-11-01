@@ -3,4 +3,4 @@
 - [x] cd Frontend
 - [x] Install react-scripts: npm install react-scripts --save
 - [x] Verify Frontend/package.json has react-scripts
-- [ ] Commit and push changes to GitHub
+- [x] Commit and push changes to GitHub
