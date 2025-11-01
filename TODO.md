@@ -1,6 +1,4 @@
-# TODO: Fix Frontend Build Error for Render Deployment
+# TODO: Edit index.html to remove unnecessary content
 
-- [x] cd Frontend
-- [x] Install react-scripts: npm install react-scripts --save
-- [x] Verify Frontend/package.json has react-scripts
-- [x] Commit and push changes to GitHub
+- [x] Remove unnecessary meta tags (og: and twitter:) from Frontend/public/index.html
+- [ ] Rebuild frontend and push changes
