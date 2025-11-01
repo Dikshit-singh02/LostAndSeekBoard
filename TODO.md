@@ -1,6 +1,5 @@
-# TODO: Start the Lost and Found Project
+# TODO: Prepare Frontend for Deployment
 
-- [x] Install dependencies in Backend directory (npm install)
-- [x] Install dependencies in Frontend directory (npm install)
-- [x] Start Backend server (npm run dev)
-- [x] Start Frontend server (npm start)
+- [x] Update Frontend/src/config.js to use environment variable for API URL
+- [x] Create Frontend/.env file with production API URL
+- [ ] Commit and push changes to GitHub

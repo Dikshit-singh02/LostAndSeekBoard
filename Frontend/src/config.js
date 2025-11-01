@@ -1,1 +1,1 @@
-export const api = "https://lostandseekboard.onrender.com";
+export const api = process.env.REACT_APP_API_URL || "http://localhost:8000";
