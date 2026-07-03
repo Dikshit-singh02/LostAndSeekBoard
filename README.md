@@ -1,174 +1,251 @@
-# LostAndSeekBoard
+# 🔍 Lost & Seek Board
 
-[![GitHub](https://img.shields.io/badge/GitHub-Dikshit--singh02/LostAndSeekBoard-blue)](https://github.com/Dikshit-singh02/LostAndSeekBoard)
+A full-stack **MERN Stack** web application that helps users report, search, and manage lost & found items. Users can post lost items with images, browse available items, and administrators can manage all records through a secure admin dashboard.
 
-A full-stack web application for reporting and finding lost items. Users can post lost items with details and images, while others can browse and search for items to help reunite them with their owners. Admins have additional privileges to manage items.
-
-## Features
-
-- **User Authentication**: Login system with JWT tokens
-- **Item Posting**: Report lost items with name, contact info, title, description, and image upload
-- **Item Browsing**: View all posted lost items
-- **Item Details**: Detailed view of individual items
-- **Admin Panel**: Admin users can edit and delete items
-- **Responsive Design**: Works on desktop and mobile devices
-- **Image Upload**: Support for uploading item images
-
-## Tech Stack
-
-### Backend
-- **Node.js** with **Express.js**
-- **MongoDB** with **Mongoose** ODM
-- **JWT** for authentication
-- **bcryptjs** for password hashing
-- **Multer** for file uploads
-- **CORS** for cross-origin requests
+## 🌐 Live Demo
 
 ### Frontend
-- **React** with **React Router** for routing
-- **Material-UI** for UI components
-- **Axios** for API calls
-- **Bootstrap** for additional styling
-- **AOS** for animations
-- **React Spinners** for loading indicators
+https://lost-and-seek-board.vercel.app
 
-## Prerequisites
+### Backend API
+https://lostandseekboard-backend.onrender.com
 
-- Node.js (version 18.x recommended)
-- MongoDB (local installation or cloud service like MongoDB Atlas)
-- npm or yarn package manager
+### API Example
+https://lostandseekboard-backend.onrender.com/item
 
-## Installation
+---
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Dikshit-singh02/LostAndSeekBoard.git
-   cd LostAndSeekBoard
-   ```
+# 📸 Features
 
-2. **Install Backend Dependencies**:
-   ```bash
-   cd Backend
-   npm install
-   ```
+- User-friendly Home Page
+- Post Lost/Found Items
+- Upload Item Images
+- Browse All Items
+- View Item Details
+- Search Items
+- Secure Admin Login (JWT Authentication)
+- Admin Dashboard
+- Edit Items
+- Delete Items
+- Responsive UI
+- RESTful API
+- MongoDB Atlas Cloud Database
 
-3. **Install Frontend Dependencies**:
-   ```bash
-   cd ../Frontend
-   npm install
-   ```
+---
 
-4. **Set up Environment Variables** (optional):
-   - Create a `.env` file in the Backend directory
-   - Add `JWT_SECRET=your_secret_key_here`
-   - Add `PORT=8000` (optional, defaults to 8000)
-   - MongoDB URL is set to `mongodb://localhost:27017/lost-and-found` in config.js
+# 🛠 Tech Stack
 
-5. **Start MongoDB**:
-   Ensure MongoDB is running on your local machine (default port 27017).
+## Frontend
 
-## Usage
+- React.js
+- React Router DOM
+- Axios
+- Bootstrap 5
+- Material UI
+- Notistack
+- React Spinners
+- AOS Animation
 
-1. **Start the Backend Server**:
-   ```bash
-   cd Backend
-   npm run dev
-   ```
-   The server will start on port 8000.
+## Backend
 
-2. **Start the Frontend Application**:
-   ```bash
-   cd Frontend
-   npm start
-   ```
-   The app will open in your browser at `http://localhost:3000`.
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- bcryptjs
+- Multer
+- CORS
+- dotenv
 
-3. **Access the Application**:
-   - Home page: Browse lost items
-   - Post: Report a lost item
-   - Find: Search for items
-   - Login: Admin login (default admin: dikshitsingh9973@gmail.com / Dikshit@2002)
-   - Admin: Manage items (admin only)
+---
 
-## API Endpoints
+# 🚀 Deployment
 
-### Items
-- `GET /item` - Get all items
-- `POST /item` - Create new item (with image upload)
-- `GET /item/:id` - Get item by ID
-- `PUT /item/:id` - Update item (admin only)
-- `DELETE /item/:id` - Delete item (admin only)
+| Service | Platform |
+|---------|----------|
+| Frontend | Vercel |
+| Backend | Render |
+| Database | MongoDB Atlas |
 
-### Authentication
-- `POST /login` - User login
+---
 
-## Project Structure
+# 📁 Project Structure
 
 ```
-Lost-And-Found/
-├── Backend/
-│   ├── .env
+LostAndSeekBoard
+│
+├── Backend
+│   ├── models
+│   ├── files
 │   ├── index.js
-│   ├── config.js
-│   ├── models/
-│   │   ├── itemmodel.js
-│   │   └── usermodel.js
-│   ├── files/
-│   │   ├── 1761682151878-213470858.png
-│   │   ├── 1761713308109-665429490.png
-│   │   ├── 1761715420734-364988761.jpeg
-│   │   ├── 1761716692659-398091027.jpeg
-│   │   ├── 1761717129637-744283381.jpeg
-│   │   ├── 1761717371505-248643028.jpeg
-│   │   ├── 1761748649342-823325056.png
-│   │   ├── 1761810445072-904190993.png
-│   │   └── 1762019724808-83453654.png
 │   ├── package.json
-│   ├── package-lock.json
-│   └── node_modules/
-├── Frontend/
-│   ├── public/
-│   │   ├── index.html
-│   │   ├── manifest.json
-│   │   └── images/
-│   │       └── favicon.png
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Form.jsx
-│   │   │   ├── ItemCard.jsx
-│   │   │   └── Navbar.jsx
-│   │   ├── pages/
-│   │   │   ├── Admin.jsx
-│   │   │   ├── Details.jsx
-│   │   │   ├── Find.jsx
-│   │   │   ├── Home.jsx
-│   │   │   ├── Login.jsx
-│   │   │   └── Post.jsx
-│   │   ├── assets/
-│   │   │   ├── l&f.png
-│   │   │   ├── newLogo.jpeg
-│   │   │   └── no-image.png
+│   └── .env
+│
+├── Frontend
+│   ├── public
+│   ├── src
+│   │   ├── assets
+│   │   ├── components
+│   │   ├── pages
 │   │   ├── App.jsx
 │   │   ├── App.css
-│   │   ├── index.js
 │   │   └── config.js
-│   ├── package.json
-│   ├── package-lock.json
-│   └── node_modules/
-├── .gitignore
+│   └── package.json
+│
 ├── README.md
-├── TODO.md
-└── .git/
+└── .gitignore
 ```
 
-## Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+# ⚙️ Installation
 
-## License
+## Clone Repository
+
+```bash
+git clone https://github.com/Dikshit-singh02/LostAndSeekBoard.git
+
+cd LostAndSeekBoard
+```
+
+---
+
+## Backend Setup
+
+```bash
+cd Backend
+
+npm install
+```
+
+Create a `.env` file
+
+```env
+PORT=8000
+
+JWT_SECRET=yourSecretKey
+
+MONGO_URI=your_mongodb_atlas_connection_string
+```
+
+Start Backend
+
+```bash
+npm run dev
+```
+
+---
+
+## Frontend Setup
+
+```bash
+cd Frontend
+
+npm install
+```
+
+Create `.env`
+
+```env
+REACT_APP_API_URL=http://localhost:8000
+```
+
+Start Frontend
+
+```bash
+npm start
+```
+
+---
+
+# 📡 API Endpoints
+
+## Authentication
+
+| Method | Endpoint |
+|---------|----------|
+| POST | `/login` |
+
+---
+
+## Items
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/item` |
+| POST | `/item` |
+| GET | `/item/:id` |
+| PUT | `/item/:id` |
+| DELETE | `/item/:id` |
+
+---
+
+# 🔐 Environment Variables
+
+### Backend
+
+```env
+PORT=
+
+JWT_SECRET=
+
+MONGO_URI=
+```
+
+### Frontend
+
+```env
+REACT_APP_API_URL=
+```
+
+---
+
+# 📸 Screenshots
+
+You can add screenshots here.
+
+Example:
+
+```
+Home Page
+
+Admin Dashboard
+
+Find Items
+
+Post Item
+```
+
+---
+
+# 👨‍💻 Author
+
+**Dikshit Singh**
+
+- GitHub: https://github.com/Dikshit-singh02
+- LinkedIn: *(Add your LinkedIn URL)*
+
+---
+
+# ⭐ Future Improvements
+
+- User Registration
+- Email Notifications
+- Search Filters
+- Category-wise Search
+- Cloudinary Image Storage
+- User Dashboard
+- Pagination
+- Forgot Password
+- Dark Mode
+
+---
+
+# 📄 License
 
 This project is licensed under the ISC License.
+
+---
+
+⭐ If you found this project useful, don't forget to **Star** the repository.
