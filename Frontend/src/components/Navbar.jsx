@@ -6,7 +6,6 @@ import SearchIcon from "@mui/icons-material/Search";
 
 function Navbar() {
   const [active, setActive] = useState(false);
-  const [cls, setCls] = useState("inactive");
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(null);
 
@@ -19,16 +18,14 @@ function Navbar() {
 
   function openNav() {
     setActive(true);
-    setCls("active");
   }
+
   function closeNav() {
     setActive(false);
-    setCls("inactive");
   }
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Handle search logic here, e.g., navigate to find page with query
     window.location.href = `/find?search=${encodeURIComponent(searchQuery)}`;
   };
 
@@ -57,16 +54,18 @@ function Navbar() {
             Lost & Seek Board
           </span>
         </a>
+
         <button
           className="navbar-toggler border-0"
           type="button"
           onClick={openNav}
           aria-controls="navbarNav"
-          aria-expanded="false"
+          aria-expanded={active}
           aria-label="Toggle navigation"
         >
           <MenuIcon className="text-white" />
         </button>
+
         <div
           className={`collapse navbar-collapse ${active ? "show" : ""}`}
           id="navbarNav"
@@ -85,6 +84,7 @@ function Navbar() {
               onChange={(e) => setSearchQuery(e.target.value)}
               aria-label="Search"
             />
+
             <button
               className="btn rounded-pill px-3 text-white"
               style={{
@@ -97,59 +97,59 @@ function Navbar() {
               <SearchIcon />
             </button>
           </form>
+
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <a
                 className="nav-link fw-semibold px-3 text-white"
-                style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                 href="/"
               >
                 Home
               </a>
             </li>
+
             <li className="nav-item">
               <a
                 className="nav-link fw-semibold px-3 text-white"
-                style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                 href="/find"
               >
                 Find Item
               </a>
             </li>
+
             <li className="nav-item">
               <a
                 className="nav-link fw-semibold px-3 text-white"
-                style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                 href="/post"
               >
                 Post Item
               </a>
             </li>
+
             <li className="nav-item">
               <a
                 className="nav-link fw-semibold px-3 text-white"
-                style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                 href="/#about"
               >
                 About Us
               </a>
             </li>
+
             {user && user.role === "admin" ? (
               <>
                 <li className="nav-item">
                   <a
                     className="nav-link fw-semibold px-3 text-white"
-                    style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                     href="/admin"
                   >
                     Admin
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <button
                     className="nav-link fw-semibold px-3 text-white btn btn-link"
                     style={{
-                      textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
                       textDecoration: "none",
                     }}
                     onClick={handleLogout}
@@ -162,7 +162,6 @@ function Navbar() {
               <li className="nav-item">
                 <a
                   className="nav-link fw-semibold px-3 text-white"
-                  style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                   href="/login"
                 >
                   Login
@@ -171,6 +170,7 @@ function Navbar() {
             )}
           </ul>
         </div>
+
         {active && (
           <button
             className="btn ms-2 rounded-pill text-white"

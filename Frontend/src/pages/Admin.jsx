@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import axios from "axios";
@@ -10,6 +10,7 @@ export default function Admin() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+
   const [editForm, setEditForm] = useState({
     name: "",
     email: "",
@@ -30,19 +31,7 @@ export default function Admin() {
     transform: "translate(-50%, -50%)",
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-
-    if (!token || user.role !== "admin") {
-      navigate("/login");
-      return;
-    }
-
-    fetchItems();
-  }, [navigate]);
-
-  const fetchItems = async () => {
+  const fetchItems = useCallback(async () => {
     setLoading(true);
 
     try {
@@ -57,14 +46,29 @@ export default function Admin() {
       setItems(response.data.data);
     } catch (error) {
       console.error(error);
-      enqueueSnackbar("Error fetching items", { variant: "error" });
+      enqueueSnackbar("Error fetching items", {
+        variant: "error",
+      });
     } finally {
       setLoading(false);
     }
-  };
+  }, [enqueueSnackbar]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if (!token || user.role !== "admin") {
+      navigate("/login");
+      return;
+    }
+
+    fetchItems();
+  }, [navigate, fetchItems]);
 
   const handleEdit = (item) => {
     setEditingItem(item._id);
+
     setEditForm({
       name: item.name,
       email: item.email,
@@ -101,6 +105,7 @@ export default function Admin() {
       fetchItems();
     } catch (error) {
       console.error(error);
+
       enqueueSnackbar("Error updating item", {
         variant: "error",
       });
@@ -126,6 +131,7 @@ export default function Admin() {
       fetchItems();
     } catch (error) {
       console.error(error);
+
       enqueueSnackbar("Error deleting item", {
         variant: "error",
       });
@@ -137,7 +143,6 @@ export default function Admin() {
     localStorage.removeItem("user");
     navigate("/");
   };
-
   return (
     <main id="adminPage">
       <Navbar />
@@ -157,6 +162,8 @@ export default function Admin() {
             loading={loading}
             cssOverride={override}
             size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
           />
         ) : (
           <div className="admin-items">
@@ -173,6 +180,7 @@ export default function Admin() {
                           name: e.target.value,
                         })
                       }
+                      placeholder="Name"
                       required
                     />
 
@@ -185,6 +193,7 @@ export default function Admin() {
                           email: e.target.value,
                         })
                       }
+                      placeholder="Email"
                       required
                     />
 
@@ -197,6 +206,7 @@ export default function Admin() {
                           phoneno: e.target.value,
                         })
                       }
+                      placeholder="Phone"
                       required
                     />
 
@@ -209,6 +219,7 @@ export default function Admin() {
                           title: e.target.value,
                         })
                       }
+                      placeholder="Title"
                       required
                     />
 
@@ -220,6 +231,7 @@ export default function Admin() {
                           description: e.target.value,
                         })
                       }
+                      placeholder="Description"
                       required
                     />
 
@@ -240,9 +252,15 @@ export default function Admin() {
                 ) : (
                   <>
                     <h3>{item.title}</h3>
-                    <p>Founder: {item.name}</p>
-                    <p>Email: {item.email}</p>
-                    <p>Phone: {item.phoneno}</p>
+                    <p>
+                      <strong>Founder:</strong> {item.name}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {item.email}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong> {item.phoneno}
+                    </p>
                     <p>{item.description}</p>
 
                     <div className="admin-actions">
