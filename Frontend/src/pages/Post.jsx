@@ -19,8 +19,15 @@ export default function Post() {
   const submitData = async (e) => {
 
     e.preventDefault();
+    if (!file) {
+      enqueueSnackbar("Please upload an image", { variant: "error" });
+      setBtn(true);
+      return;
+    }
+
     setBtn(false)
     const formData = new FormData();
+
 
     formData.append("name", name);
     formData.append("phoneno", phone);
@@ -91,13 +98,13 @@ export default function Post() {
               </textarea>
             </div>
             <div className="input-container">
-              <label htmlFor="file">Upload Image</label>{" "}
+              <label htmlFor="image">Upload Image</label>{" "}
               <input
                 type="file"
                 accept="images/*"
                 onChange={(e) => setFile(e.target.files[0])}
-                name="file"
-                id="file"
+                name="image"
+                id="image"
               />
             </div>
             <div className="input-container">

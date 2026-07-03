@@ -73,6 +73,16 @@ app.get("/item", async (req, res) => {
 // POST create new item
 app.post("/item", upload.single("image"), async (req, res) => {
   try {
+    // Debugging: helps us find why req.file / req.body is missing
+    console.log("[POST /item] body:", {
+      name: req.body?.name,
+      email: req.body?.email,
+      phoneno: req.body?.phoneno,
+      title: req.body?.title,
+      description: req.body?.description,
+    });
+    console.log("[POST /item] file:", req.file ? { fieldname: req.file.fieldname, filename: req.file.filename, mimetype: req.file.mimetype } : null);
+
     if (
       !req.body.name ||
       !req.body.email ||
@@ -85,6 +95,7 @@ app.post("/item", upload.single("image"), async (req, res) => {
         message: "All fields are required, including image upload"
       });
     }
+
 
     const newItem = {
       name: req.body.name,
@@ -205,8 +216,16 @@ const seedAdmin = async () => {
 };
 
 // Connect to MongoDB and start server
+const mongoUrl = process.env.MONGO_URI;
+
+if (!mongoUrl) {
+  console.error("Missing env var: MONGO_URI");
+  console.error("Current env check:", { MONGO_URI: process.env.MONGO_URI });
+  process.exit(1);
+}
+
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(mongoUrl)
   .then(async () => {
     console.log("Connected to local MongoDB database");
     await seedAdmin();
@@ -217,3 +236,4 @@ mongoose
   .catch((error) => {
     console.error("Database connection error:", error);
   });
+
