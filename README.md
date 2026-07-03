@@ -224,7 +224,7 @@ Post Item
 **Dikshit Singh**
 
 - GitHub: https://github.com/Dikshit-singh02
-- LinkedIn: *(Add your LinkedIn URL)*
+- LinkedIn: [*(Add your LinkedIn URL)*](https://www.linkedin.com/in/dikshitsingh99/)
 
 ---
 
