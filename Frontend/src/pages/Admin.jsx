@@ -5,7 +5,6 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { api } from "../config";
 import HashLoader from "react-spinners/HashLoader";
-import { CSSProperties } from "react";
 
 export default function Admin() {
   const [items, setItems] = useState([]);
@@ -18,16 +17,17 @@ export default function Admin() {
     title: "",
     description: "",
   });
+
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const override: CSSProperties = {
+  const override = {
     display: "block",
     borderColor: "#fdf004",
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%,-50%)",
+    transform: "translate(-50%, -50%)",
   };
 
   useEffect(() => {
@@ -44,14 +44,19 @@ export default function Admin() {
 
   const fetchItems = async () => {
     setLoading(true);
+
     try {
       const token = localStorage.getItem("token");
+
       const response = await axios.get(`${api}/item`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
       setItems(response.data.data);
     } catch (error) {
-      console.error("Error fetching items:", error);
+      console.error(error);
       enqueueSnackbar("Error fetching items", { variant: "error" });
     } finally {
       setLoading(false);
@@ -71,8 +76,10 @@ export default function Admin() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
     try {
       const token = localStorage.getItem("token");
+
       const formData = new FormData();
 
       Object.keys(editForm).forEach((key) => {
@@ -86,12 +93,17 @@ export default function Admin() {
         },
       });
 
-      enqueueSnackbar("Item updated successfully", { variant: "success" });
+      enqueueSnackbar("Item updated successfully", {
+        variant: "success",
+      });
+
       setEditingItem(null);
       fetchItems();
     } catch (error) {
-      console.error("Error updating item:", error);
-      enqueueSnackbar("Error updating item", { variant: "error" });
+      console.error(error);
+      enqueueSnackbar("Error updating item", {
+        variant: "error",
+      });
     }
   };
 
@@ -100,15 +112,23 @@ export default function Admin() {
 
     try {
       const token = localStorage.getItem("token");
+
       await axios.delete(`${api}/item/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      enqueueSnackbar("Item deleted successfully", { variant: "success" });
+      enqueueSnackbar("Item deleted successfully", {
+        variant: "success",
+      });
+
       fetchItems();
     } catch (error) {
-      console.error("Error deleting item:", error);
-      enqueueSnackbar("Error deleting item", { variant: "error" });
+      console.error(error);
+      enqueueSnackbar("Error deleting item", {
+        variant: "error",
+      });
     }
   };
 
@@ -121,9 +141,11 @@ export default function Admin() {
   return (
     <main id="adminPage">
       <Navbar />
+
       <section>
         <div className="admin-header">
           <h1>Admin Panel</h1>
+
           <button onClick={handleLogout} className="logout-btn">
             Logout
           </button>
@@ -135,8 +157,6 @@ export default function Admin() {
             loading={loading}
             cssOverride={override}
             size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
           />
         ) : (
           <div className="admin-items">
@@ -148,54 +168,70 @@ export default function Admin() {
                       type="text"
                       value={editForm.name}
                       onChange={(e) =>
-                        setEditForm({ ...editForm, name: e.target.value })
+                        setEditForm({
+                          ...editForm,
+                          name: e.target.value,
+                        })
                       }
-                      placeholder="Name"
                       required
                     />
+
                     <input
                       type="email"
                       value={editForm.email}
                       onChange={(e) =>
-                        setEditForm({ ...editForm, email: e.target.value })
+                        setEditForm({
+                          ...editForm,
+                          email: e.target.value,
+                        })
                       }
-                      placeholder="Email"
                       required
                     />
+
                     <input
                       type="tel"
                       value={editForm.phoneno}
                       onChange={(e) =>
-                        setEditForm({ ...editForm, phoneno: e.target.value })
+                        setEditForm({
+                          ...editForm,
+                          phoneno: e.target.value,
+                        })
                       }
-                      placeholder="Phone"
                       required
                     />
+
                     <input
                       type="text"
                       value={editForm.title}
                       onChange={(e) =>
-                        setEditForm({ ...editForm, title: e.target.value })
+                        setEditForm({
+                          ...editForm,
+                          title: e.target.value,
+                        })
                       }
-                      placeholder="Title"
                       required
                     />
+
                     <textarea
                       value={editForm.description}
                       onChange={(e) =>
-                        setEditForm({ ...editForm, description: e.target.value })
+                        setEditForm({
+                          ...editForm,
+                          description: e.target.value,
+                        })
                       }
-                      placeholder="Description"
                       required
                     />
+
                     <div className="edit-actions">
                       <button type="submit" className="save-btn">
                         Save
                       </button>
+
                       <button
                         type="button"
-                        onClick={() => setEditingItem(null)}
                         className="cancel-btn"
+                        onClick={() => setEditingItem(null)}
                       >
                         Cancel
                       </button>
@@ -208,16 +244,18 @@ export default function Admin() {
                     <p>Email: {item.email}</p>
                     <p>Phone: {item.phoneno}</p>
                     <p>{item.description}</p>
+
                     <div className="admin-actions">
                       <button
-                        onClick={() => handleEdit(item)}
                         className="edit-btn"
+                        onClick={() => handleEdit(item)}
                       >
                         Edit
                       </button>
+
                       <button
-                        onClick={() => handleDelete(item._id)}
                         className="delete-btn"
+                        onClick={() => handleDelete(item._id)}
                       >
                         Delete
                       </button>

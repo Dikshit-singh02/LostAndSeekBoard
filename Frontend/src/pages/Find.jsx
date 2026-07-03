@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Itemcard from "../components/ItemCard";
 import Navbar from "../components/Navbar";
 import axios from "axios";
@@ -9,14 +9,11 @@ import "aos/dist/aos.css";
 import { useSearchParams } from "react-router-dom";
 
 function Find() {
-  const [item, setItem] = useState([]);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
-
-  useEffect(() => {
-    AOS.init({ duration: 750 });
-  }, []);
 
   const override = {
     display: "block",
@@ -24,58 +21,88 @@ function Find() {
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%,-50%)",
+    transform: "translate(-50%, -50%)",
   };
+
   useEffect(() => {
-    axios
-      .get(`${api}/item`)
-      .then((res) => {
-        let items = res.data.data;
-        if (searchQuery) {
-          items = items.filter(
+    AOS.init({
+      duration: 700,
+      once: true,
+    });
+  }, []);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      setLoading(true);
+
+      try {
+        const response = await axios.get(`${api}/item`);
+
+        let data = response.data?.data || [];
+
+        if (searchQuery.trim() !== "") {
+          const query = searchQuery.toLowerCase();
+
+          data = data.filter(
             (item) =>
-              item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              item.description.toLowerCase().includes(searchQuery.toLowerCase())
+              item.title?.toLowerCase().includes(query) ||
+              item.description?.toLowerCase().includes(query)
           );
         }
-        setItem(items);
+
+        setItems(data);
+        AOS.refresh();
+      } catch (error) {
+        console.error("Error fetching items:", error.response?.data || error);
+        setItems([]);
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      }
+    };
+
+    fetchItems();
   }, [searchQuery]);
+
   return (
     <main id="findpage">
       <Navbar />
+
       <section>
         <h1 className="lfh1">Lost and Found Items</h1>
-        <div className="item-container">
+
+        {loading ? (
           <HashLoader
             color="#fdf004"
             loading={loading}
             cssOverride={override}
             size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
           />
-          {item.reverse().map((findItem, index) => {
-            return (
-              <Itemcard
-                key={index}
-                id={findItem._id}
-                title={findItem.title}
-                description={findItem.description}
-                image={findItem.image}
-                createdAt={findItem.createdAt}
-              />
-            );
-          })}
+        ) : (
+          <div className="item-container">
+            {items.length > 0 ? (
+              [...items]
+                .reverse()
+                .map((item) => (
+                  <Itemcard
+                    key={item._id}
+                    id={item._id}
+                    title={item.title}
+                    description={item.description}
+                    image={item.image}
+                    createdAt={item.createdAt}
+                  />
+                ))
+            ) : (
+              <h3 style={{ textAlign: "center", width: "100%" }}>
+                No items found.
+              </h3>
+            )}
 
-          <div className="extraItem"></div>
-          <div className="extraItem"></div>
-          <div className="extraItem"></div>
-        </div>
+            <div className="extraItem"></div>
+            <div className="extraItem"></div>
+            <div className="extraItem"></div>
+          </div>
+        )}
       </section>
     </main>
   );
